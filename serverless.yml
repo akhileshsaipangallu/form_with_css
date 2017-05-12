@@ -1,0 +1,62 @@
+service: aws-python
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: dep
+  region: us-east-1
+
+
+functions:
+  home:
+    name: home
+    handler: home.home
+    timeout: 3
+    events:
+      - http:
+          method: get
+          path: dep/home
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'text/html'"
+            template: $input.path('$')
+  page_one:
+    handler: page_one.page_one
+    name: page_one
+    timeout: 3
+    events:
+      - http:
+          method: get
+          path: dep/page_one
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'text/html'"
+            template: $input.path('$')
+  page_two:
+    handler: page_two.page_two
+    name: page_two
+    timeout: 3
+    events:
+      - http:
+          method: get
+          path: dep/page_two
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'text/html'"
+            template: $input.path('$')
+  page_three:
+    handler: page_three.page_three
+    name: page_three
+    timeout: 3
+    events:
+      - http:
+          method: get
+          path: dep/page_three
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'text/html'"
+            template: $input.path('$')
